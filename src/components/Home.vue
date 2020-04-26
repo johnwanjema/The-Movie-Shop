@@ -44,7 +44,7 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch('login')
+        this.$store.dispatch('getPopularMovies')
     }
 };
 </script>
