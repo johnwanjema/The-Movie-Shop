@@ -1,19 +1,22 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../components/Home";
+import viewMovie from "../components/viewMovieDetails";
 
 Vue.use(VueRouter);
 
-const routes = [
+export default [ 
   {
     path: "/",
     name: "Home",
     component: Home
   },
-];
+  {
+    path: "/viewMovie",
+    name: "viewMovie",
+    component: viewMovie,
+    props:true
+  },
+]
 
-const router = new VueRouter({
-  routes
-});
 
-export default router;
