@@ -7,14 +7,19 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {},
   state: {
-    popularMovies: []
+    popularMovies: [],
+    trendingMovies: []
   },
   getters: {
     popularMovies: state => state.popularMovies,
+    trendingMovies: state => state.trendingMovies,
   },
   mutations: {
     setPopularMovies: (state, popularMovies) => {
       state.popularMovies = popularMovies
+    },
+    setTrendingMovies: (state, trendingMovies) => {
+      state.trendingMovies = trendingMovies
     },
   },
   actions: {
@@ -23,6 +28,18 @@ export default new Vuex.Store({
         appService.getPopularMovies(credentials)
           .then(data => {
             commit('setPopularMovies',data)
+            resolve()
+          })
+          .catch(() => {
+
+          })
+      })
+    },
+    getTrendingMovies({ commit }, credentials) {
+      return new Promise(resolve => {
+        appService.getTrendingMovies(credentials)
+          .then(data => {
+            commit('setTrendingMovies',data)
             resolve()
           })
           .catch(() => {
