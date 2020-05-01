@@ -7,7 +7,7 @@
 
 <template>
     <section>
-        <b-navbar toggleable="lg" type="dark" variant="dark">
+        <b-navbar toggleable="lg" fixed="top" type="dark" variant="dark">
             <b-navbar-brand href="/">The Movie Shop</b-navbar-brand>
     
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
