@@ -20,6 +20,15 @@ const appService = {
           })
       })
     },
+    popularShows() {
+      return new Promise(resolve => {
+        axios
+          .get(`https://api.themoviedb.org/3/tv/popular?api_key=f16a94a392138ff37753fb6821113944&language=en-US`)
+          .then(response => {
+            resolve(response.data)
+          })
+      })
+    },
   }
   
   export default appService
