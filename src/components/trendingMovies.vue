@@ -15,8 +15,6 @@
     color: #ffffff;
 }
 
-
-
 /* * {
     -webkit-transition: 300ms;
     transition: 300ms;
@@ -55,7 +53,7 @@ a:hover {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     max-width: 95%;
-    margin-top: 10px;
+    margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
     -webkit-box-pack: center;
@@ -81,10 +79,8 @@ a:hover {
     display: block;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-     background-size: cover;
+    background-size: cover;
 }
-
-
 
 .header-icon-container {
     position: relative;
@@ -176,45 +172,85 @@ a:hover {
     font-size: 11px;
 }
 
-@media screen and (max-width: 500px) {
-  .movie-card {
-    width: 95%;
-    max-width: 95%;
-    margin: 1em;
-    display: block;
-  }
+.nav-link{
+    color:white !important
+}
 
-  .container-fluid {
-    padding: 0;
-    margin: 0;
-  }
+@media screen and (max-width: 500px) {
+    .movie-card {
+        width: 95%;
+        max-width: 95%;
+        margin: 1em;
+        display: block;
+    }
+    .container-fluid {
+        padding: 0;
+        margin: 0;
+    }
 }
 </style>
 
 <template>
     <section>
+        <b-navbar toggleable="lg" fixed="top" type="dark" variant="dark">
+        <b-navbar-brand href="/">The Movie Shop</b-navbar-brand>
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav style="color:white">
+                <b-nav-item to="/popular">Popular</b-nav-item>
+                <b-nav-item to="/trending">Trending</b-nav-item>
+                <b-nav-item to="/popularShows">Popular Shows</b-nav-item>
+            </b-navbar-nav>
+
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="ml-auto">
+                <b-nav-form>
+                        <b-form-input @keyup="searchMovie()" size="sm" v-model="search" class="mr-sm-2" placeholder="Search"></b-form-input>
+                    <!-- <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button> -->
+                </b-nav-form>
+
+                <b-nav-item-dropdown right>
+                    <!-- Using 'button-content' slot -->
+                    <template v-slot:button-content>
+                        <em>User</em>
+                    </template>
+                    <b-dropdown-item href="#">Profile</b-dropdown-item>
+                    <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                </b-nav-item-dropdown>
+            </b-navbar-nav>
+        </b-collapse>
+    </b-navbar>
         <div class="container-fluid">
             <!--movie-card-->
-            <div class="row">
+            <div style="padding-bottom:100px" class="row">
                 <div v-for="(movie,i) in trendingMovies.results" :key="i" class="col-md-3 movie">
                     <div class="movie-card">
                         <div class="movie-header" v-bind:style="{ backgroundImage: 'url(' + 'http://image.tmdb.org/t/p/w185///' + movie.poster_path + ')' }">
                             <div class="header-icon-container">
                                 <a href="#">
-        					<i class="material-icons header-icon"></i>
-        				</a>
+            					<i class="material-icons header-icon"></i>
+            				</a>
                             </div>
                         </div>
                         <!--movie-header-->
                         <div class="movie-content">
                             <div class="movie-content-header">
                                 <router-link :to="{ name: 'viewMovie', params: {movie: movie} }">
-                                    <h3 class="movie-title">{{movie.original_title}}</h3>
+                                    <h3 v-if="movie.original_title" class="movie-title">{{movie.original_title}}</h3>
+                                    <h3 v-if="movie.name" class="movie-title">{{movie.name}}</h3>
                                 </router-link>
                                 <div class="imax-logo"></div>
                             </div>
+                            <div class="movie-content-header">
+                                <label>Popularity</label>
+                                 <b-progress :variant="success" :value="movie.popularity" :max="1000" show-progress animated></b-progress>
+                            </div>
+                             <div style="padding-top:10px" class="movie-content-header">
+                                <label ><u>Overview</u></label>
+                                 <p class="card-text">{{movie.overview.substring(0, 100)}} ...</p>
+                                </div>
                             <div class="movie-info">
-                               <div class="info-section">
+                                <div class="info-section">
                                     <label>Release Date</label>
                                     <span>{{movie.release_date}}</span>
                                 </div>
@@ -222,11 +258,6 @@ a:hover {
                                 <div class="info-section">
                                     <label>Adult</label>
                                     <span>{{movie.adult}}</span>
-                                </div>
-    
-                                <div class="info-section">
-                                    <label>popularity</label>
-                                    <span>{{movie.popularity}}</span>
                                 </div>
     
                                 <div class="info-section">
@@ -238,37 +269,8 @@ a:hover {
                         </div>
                         <!--movie-content-->
                     </div>
-                    <!-- <div class="card" style="width: 22rem;">
-                        <img class="card-img-top" style="height:auto; width:auto" :src="'http://image.tmdb.org/t/p/w185//'+ movie.poster_path" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{movie.original_title}}</h5>
-                            <p class="card-text">{{movie.overview.substring(1, 100)}} ...</p>
-                            <div class="movie-info">
-                                <div class="info-section">
-                                    <label>Release Date</label>
-                                    <span>{{movie.release_date}}</span>
-                                </div>
-    
-                                <div class="info-section">
-                                    <label>Adult</label>
-                                    <span>{{movie.adult}}</span>
-                                </div>
-    
-                                <div class="info-section">
-                                    <label>popularity</label>
-                                    <span>{{movie.popularity}}</span>
-                                </div>
-    
-                                <div class="info-section">
-                                    <label>Language</label>
-                                    <span>{{movie.original_language}}</span>
-                                </div>
-    
-                            </div>
-                            <a style="color:white" @click="viewMovie(movie)" class="btn btn-primary">View</a>
-                        </div>
-                    </div> -->
                 </div>
+                <b-pagination style="padding-left:250px;" v-model="currentPage" @input="getPaginationData(currentPage)" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
             </div>
         </div>
     
@@ -283,12 +285,33 @@ export default {
     name: "Home",
     data() {
         return {
+             currentPage: 1,
+            perPage: 12
         }
     },
     computed: {
         ...mapGetters(['trendingMovies']),
+        rows() {
+            return this.trendingMovies.total_pages
+        }
     },
     methods: {
+         searchMovie: _.debounce(function() {
+            axios
+                .get(`https://api.themoviedb.org/3/search/movie?api_key=f16a94a392138ff37753fb6821113944&language=en-US&query=` + this.search)
+                .then( ({data})  => {
+                    this.$store.commit('setTrendingMovies', data)
+                    // console.log(data)
+                })
+        }, 1000),
+        getPaginationData(page) {
+            axios
+                .get(`https://api.themoviedb.org/3/trending/all/day?api_key=f16a94a392138ff37753fb6821113944&language=en-US&page=` + page)
+                .then(({ data }) => {
+                    this.$store.commit('setTrendingMovies', data)
+                    console.log(data)
+                })
+        },
     },
     mounted() {
         this.$store.dispatch('getTrendingMovies');

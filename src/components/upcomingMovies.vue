@@ -176,6 +176,10 @@ a:hover {
     font-size: 11px;
 }
 
+.nav-link{
+    color:white !important
+}
+
 @media screen and (max-width: 500px) {
   .movie-card {
     width: 95%;
@@ -193,6 +197,34 @@ a:hover {
 
 <template>
     <section>
+        <b-navbar toggleable="lg" fixed="top" type="dark" variant="dark">
+        <b-navbar-brand href="/">The Movie Shop</b-navbar-brand>
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav style="color:white">
+                <b-nav-item to="/popular">Popular</b-nav-item>
+                <b-nav-item to="/trending">Trending</b-nav-item>
+                <b-nav-item to="/popularShows">Popular Shows</b-nav-item>
+            </b-navbar-nav>
+
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="ml-auto">
+                <b-nav-form>
+                    <b-form-input size="sm" v-model="search" class="mr-sm-2" placeholder="Search"></b-form-input>
+                    <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+                </b-nav-form>
+
+                <b-nav-item-dropdown right>
+                    <!-- Using 'button-content' slot -->
+                    <template v-slot:button-content>
+                        <em>User</em>
+                    </template>
+                    <b-dropdown-item href="#">Profile</b-dropdown-item>
+                    <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                </b-nav-item-dropdown>
+            </b-navbar-nav>
+        </b-collapse>
+    </b-navbar>
         <div class="container-fluid">
             <!--movie-card-->
             <div class="row">
@@ -238,36 +270,6 @@ a:hover {
                         </div>
                         <!--movie-content-->
                     </div>
-                    <!-- <div class="card" style="width: 22rem;">
-                        <img class="card-img-top" style="height:auto; width:auto" :src="'http://image.tmdb.org/t/p/w185//'+ movie.poster_path" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{movie.original_title}}</h5>
-                            <p class="card-text">{{movie.overview.substring(1, 100)}} ...</p>
-                            <div class="movie-info">
-                                <div class="info-section">
-                                    <label>Release Date</label>
-                                    <span>{{movie.release_date}}</span>
-                                </div>
-    
-                                <div class="info-section">
-                                    <label>Adult</label>
-                                    <span>{{movie.adult}}</span>
-                                </div>
-    
-                                <div class="info-section">
-                                    <label>popularity</label>
-                                    <span>{{movie.popularity}}</span>
-                                </div>
-    
-                                <div class="info-section">
-                                    <label>Language</label>
-                                    <span>{{movie.original_language}}</span>
-                                </div>
-    
-                            </div>
-                            <a style="color:white" @click="viewMovie(movie)" class="btn btn-primary">View</a>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
