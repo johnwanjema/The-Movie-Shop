@@ -8,11 +8,13 @@ export default new Vuex.Store({
   modules: {},
   state: {
     popularMovies: [],
-    trendingMovies: []
+    trendingMovies: [],
+    popularShows:[]
   },
   getters: {
     popularMovies: state => state.popularMovies,
     trendingMovies: state => state.trendingMovies,
+    popularShows :state => state.popularShows
   },
   mutations: {
     setPopularMovies: (state, popularMovies) => {
@@ -21,11 +23,14 @@ export default new Vuex.Store({
     setTrendingMovies: (state, trendingMovies) => {
       state.trendingMovies = trendingMovies
     },
+    setPopularShows: (state, popularShows) => {
+      state.popularShows = popularShows
+    },
   },
   actions: {
-    getPopularMovies({ commit }, credentials) {
+    getPopularMovies({ commit }, ) {
       return new Promise(resolve => {
-        appService.getPopularMovies(credentials)
+        appService.getPopularMovies()
           .then(data => {
             commit('setPopularMovies',data)
             resolve()
@@ -35,11 +40,23 @@ export default new Vuex.Store({
           })
       })
     },
-    getTrendingMovies({ commit }, credentials) {
+    getTrendingMovies({ commit }, ) {
       return new Promise(resolve => {
-        appService.getTrendingMovies(credentials)
+        appService.getTrendingMovies()
           .then(data => {
             commit('setTrendingMovies',data)
+            resolve()
+          })
+          .catch(() => {
+
+          })
+      })
+    },
+    popularShows({ commit }, ) {
+      return new Promise(resolve => {
+        appService.popularShows()
+          .then(data => {
+            commit('setPopularShows',data)
             resolve()
           })
           .catch(() => {
