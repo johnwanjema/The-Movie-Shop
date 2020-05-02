@@ -6,38 +6,10 @@
 </style>
 
 <template>
-    <section>
-        <b-navbar toggleable="lg" fixed="top" type="dark" variant="dark">
-            <b-navbar-brand href="/">The Movie Shop</b-navbar-brand>
+  <section>
     
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-    
-            <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-nav style="color:white">
-                    <b-nav-item to="/popular">Popular</b-nav-item>
-                    <b-nav-item href="/trending">Trending</b-nav-item>
-                </b-navbar-nav>
-    
-                <!-- Right aligned nav items -->
-                <b-navbar-nav class="ml-auto">
-                    <b-nav-form>
-                        <b-form-input size="sm" v-model="search" class="mr-sm-2" placeholder="Search"></b-form-input>
-                        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-                    </b-nav-form>
-    
-                    <b-nav-item-dropdown right>
-                        <!-- Using 'button-content' slot -->
-                        <template v-slot:button-content>
-                        <em>User</em>
-                </template>
-                <b-dropdown-item href="#">Profile</b-dropdown-item>
-                <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-            </b-nav-item-dropdown>
-        </b-navbar-nav>
-    </b-collapse>
-</b-navbar>
-               <router-view />
-    </section>
+    <router-view />
+</section>
 </template>
 <script>
 export default {
