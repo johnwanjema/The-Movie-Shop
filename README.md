@@ -1,24 +1,16 @@
-# movies
+# The Movie Shop
 
-## Project setup
+## Created by
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+John Wanjema
 ```
 
-### Compiles and minifies for production
+### Description
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+A website that shows you a list of upcoming movies and shows. The are also categorized according to popularity and trending ones.
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Technologies Used
+* Vue
+* imdb movie database api(https://www.themoviedb.org/)
+
